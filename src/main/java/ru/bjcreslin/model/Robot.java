@@ -1,6 +1,6 @@
 package ru.bjcreslin.model;
 
-import lombok.Data;
+import lombok.Getter;
 
 import java.util.Random;
 
@@ -9,11 +9,11 @@ import java.util.Random;
  */
 
 
-@Data
 public class Robot extends Movable implements GameObject {
     //Количество шагов парализации. Будет уменьшаться с каждым шагом, пока не достигнет 0.
     //Если равно 0, то робот может двигаться по игровому полю
     // При парализации становится равным 5
+    @Getter
     private int numberOfStepsParalyze;
 
     //Новый робот не парализован, и создается в координатах
@@ -42,21 +42,22 @@ public class Robot extends Movable implements GameObject {
             saveCoordinate();
 
             moveRandom();
-
+/*
+todo переделать
+ */
             /* Если робот наезжает на игрока, то конец игры*/
             if (PlayingField.isPlayerInField(this)) {
                 Game.setPlayerAlive(false);
             } else {
 
-            /* Если робот выезжает за пределы экрана или на кучу золота или дыру, то
-             возвращаем старые координаты*/
-                if ((!PlayingField.isObjectInField(this)) |
-                        (!PlayingField.isObjectInGold(this)) |
-                        (!PlayingField.isObjectInHole(this))) {
-                    restoreCoordinate();
-                } else {
-                    PlayingField.setGround(this.getXtemp(), this.getYtemp());
 
+                if (PlayingField.canRobotMove(this) & PlayingField.isObjectInField(this)) {
+                    /* Заполняем старое расположение робота землей*/
+                    PlayingField.setGround(this.xtemp, this.ytemp);
+                } else {
+                 /* Если робот выезжает за пределы экрана или на кучу золота или дыру, то
+             возвращаем старые координаты*/
+                    restoreCoordinate();
                 }
             }
         }
@@ -72,13 +73,6 @@ public class Robot extends Movable implements GameObject {
         setY(ytemp);
     }
 
-    private int getXtemp() {
-        return xtemp;
-    }
-
-    private int getYtemp() {
-        return ytemp;
-    }
 
     private int xtemp;
     private int ytemp;

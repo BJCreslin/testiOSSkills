@@ -2,8 +2,6 @@ package ru.bjcreslin.model;
 
 import lombok.Data;
 
-import java.util.stream.Collectors;
-import java.util.stream.Stream;
 
 /**
  * Класс игрового поля.
@@ -14,11 +12,11 @@ import java.util.stream.Stream;
 
 public class PlayingField {
     private static int nSize;
-    private static GameObject[][] playingFieldCells; // Само игровое поле
+    private static StaticAble[][] playingFieldCells; // Само игровое поле
 
     public PlayingField(int nSize) {
         this.nSize = nSize;
-        playingFieldCells = new GameObject[nSize][nSize];
+        playingFieldCells = new StaticAble[nSize][nSize];
     }
 
 
@@ -53,5 +51,9 @@ public class PlayingField {
 
     public static void setGround(int xtemp, int ytemp) {
         playingFieldCells[ytemp][xtemp] = Ground.getInstance();
+    }
+    public static boolean canRobotMove(Movable movable){
+       return playingFieldCells[movable.getY()][movable.getX()].robotCanMove;
+
     }
 }

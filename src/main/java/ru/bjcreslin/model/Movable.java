@@ -1,6 +1,7 @@
 package ru.bjcreslin.model;
 
 import lombok.Data;
+import lombok.Getter;
 
 /*
 Двигающиеся объекты такие как игрок, роботы хранят свои координаты в себе.
@@ -19,7 +20,6 @@ public abstract class Movable {
     }
 
     abstract public void action();
-
 
 
 }
