@@ -13,7 +13,7 @@ public class Game {
     private int nHole;//Количество дырок в полу
     private int nRobots;//количество роботов
 
-    List<PieceOfGold> pieceOfGoldList; //коллекция
+
 
     public Game(int nSize, int nPieceOfGold, int nHole, int nRobots) {
         this.nSize = nSize;
@@ -22,13 +22,12 @@ public class Game {
         this.nRobots = nRobots;
 
         PlayingField playingField = new PlayingField(nSize);
+        playingField.fillAllCellsGround();
 
         Player player = new Player(nSize);
 
-      //  List<PieceOfGold> pieceOfGoldList = PieceOfGoldController.getNewPieceOfGoldList(nSize, nPieceOfGold, player);
-
-        //Запускаем игру
+        //Делаем игрока живым
         playerAlive = true;
-
     }
+
 }
