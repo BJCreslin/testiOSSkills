@@ -22,9 +22,13 @@ public class Robot extends Movable implements GameObject {
         this.numberOfStepsParalyze = 0;
     }
 
-    private void move() {
+    /*
+    Хождние робота - случайное.
+     */
+    private void moveRandom() {
         getMoveDispatcher().getConsumerMap().get(new Random().nextInt(3));
     }
+
 
     @Override
     public void action() {
@@ -35,9 +39,9 @@ public class Robot extends Movable implements GameObject {
         //Иначе робот делает ход
         else {
             //сохраняем предыдущие координаты хода для возможной отмены
-            int xtemp = getX();
-            int ytemp = getY();
-            move();
+            saveCoordinate();
+
+            moveRandom();
             /* Если робот выезжает за пределы экрана или на кучу золота или дыру, то
              возвращаем старые координаты*/
             if ((!PlayingField.isObjectInField(this)) |
@@ -48,11 +52,18 @@ public class Robot extends Movable implements GameObject {
             }
 
 
-
-
         }
 
 
     }
+
+    private void saveCoordinate() {
+        xtemp = this.getX();
+        ytemp = this.getY();
+    }
+
+    private int xtemp;
+    private int ytemp;
+
 
 }

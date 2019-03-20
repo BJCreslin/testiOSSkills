@@ -12,7 +12,7 @@ public class Player extends Movable implements GameObject {
 
     @Override
     /**
-     * todo сделать
+     * todo сделать реализацию
      */
     public void action() {
 

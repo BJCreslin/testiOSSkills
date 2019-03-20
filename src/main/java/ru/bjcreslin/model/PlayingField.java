@@ -17,11 +17,7 @@ public class PlayingField {
         this.nSize = nSize;
         playingFieldCells = new GameObject[nSize][nSize];
 
-
     }
-
-
-
 
     //Заполняем все клетки "землей"
     public void fillAllCellsGround() {

@@ -1,24 +1,24 @@
 package ru.bjcreslin.model;
 
 
-import lombok.Data;
+import lombok.Getter;
 
 import java.util.HashMap;
 import java.util.Map;
 import java.util.function.BiConsumer;
 
-@Data
-public class MoveDispatcher {
+
+ class MoveDispatcher {
+    @Getter
     private Map<Integer, BiConsumer<Integer, Integer>> consumerMap;
 
-    public MoveDispatcher() {
+     MoveDispatcher() {
         consumerMap = new HashMap<>();
         consumerMap.put(0, this::up);
         consumerMap.put(1, this::down);
         consumerMap.put(2, this::right);
         consumerMap.put(3, this::left);
     }
-
 
     //Увеличиваем координату y - движение вверх
     void up(Integer x, Integer y) {
