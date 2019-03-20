@@ -20,4 +20,6 @@ public abstract class Movable {
 
     abstract public void action();
 
+
+
 }

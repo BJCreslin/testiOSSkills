@@ -5,7 +5,7 @@ import lombok.Data;
 import java.util.Random;
 
 /**
- * Класс робота
+ * Класс робот
  */
 
 
@@ -42,24 +42,42 @@ public class Robot extends Movable implements GameObject {
             saveCoordinate();
 
             moveRandom();
+
+            /* Если робот наезжает на игрока, то конец игры*/
+            if (PlayingField.isPlayerInField(this)) {
+                Game.setPlayerAlive(false);
+            } else {
+
             /* Если робот выезжает за пределы экрана или на кучу золота или дыру, то
              возвращаем старые координаты*/
-            if ((!PlayingField.isObjectInField(this)) |
-                    (!PlayingField.isObjectInGold(this)) |
-                    (!PlayingField.isObjectInHole(this))) {
-                setX(xtemp);
-                setY(ytemp);
+                if ((!PlayingField.isObjectInField(this)) |
+                        (!PlayingField.isObjectInGold(this)) |
+                        (!PlayingField.isObjectInHole(this))) {
+                    restoreCoordinate();
+                } else {
+                    PlayingField.setGround(this.getXtemp(), this.getYtemp());
+
+                }
             }
-
-
         }
-
-
     }
 
     private void saveCoordinate() {
         xtemp = this.getX();
         ytemp = this.getY();
+    }
+
+    private void restoreCoordinate() {
+        setX(xtemp);
+        setY(ytemp);
+    }
+
+    private int getXtemp() {
+        return xtemp;
+    }
+
+    private int getYtemp() {
+        return ytemp;
     }
 
     private int xtemp;
