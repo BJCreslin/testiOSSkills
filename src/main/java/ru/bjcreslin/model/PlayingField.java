@@ -23,12 +23,12 @@ public class PlayingField {
     public void fillAllCellsGround() {
         for (int i = 0; i < nSize; i++) {
             for (int j = 0; j < nSize; j++) {
-                playingFieldCells[i][j] = new Ground();
+                playingFieldCells[i][j] = Ground.getInstance();
             }
         }
     }
 
-//ПРоверяем нахождение объекта Movable в пределах игрового поля
+    //ПРоверяем нахождение объекта Movable в пределах игрового поля
     public static boolean isObjectInField(Movable movableObject) {
         return ((movableObject.getX() >= 0) & (movableObject.getY() >= 0) &
                 (movableObject.getX() < nSize) & (movableObject.getY() < nSize)) ? true : false;
