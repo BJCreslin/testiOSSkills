@@ -33,7 +33,7 @@ public abstract class Movable {
         ytemp = this.getY();
     }
 
-    public void restroreCoord() {
+    public void restoreCoord() {
         setX(xtemp);
         setY(ytemp);
     }

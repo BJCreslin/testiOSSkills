@@ -2,6 +2,7 @@ package ru.bjcreslin.controller;
 
 import lombok.AllArgsConstructor;
 import ru.bjcreslin.model.Game;
+import ru.bjcreslin.model.Hole;
 import ru.bjcreslin.model.Movable;
 import ru.bjcreslin.model.MoveDispatcher;
 
@@ -27,15 +28,30 @@ public class CheckStartCollision {
     public boolean isNotEnvironmentByHole(Movable movable) {
         MoveDispatcher moveDispatcher = new MoveDispatcher();
 
+        //Проходим всеми ходами
         for (Map.Entry<Integer, BiConsumer<Integer, Integer>> entry : moveDispatcher.getConsumerMap().entrySet()) {
             movable.saveCoord();
             entry.getValue().accept(movable.getX(), movable.getY());
-            movable.restroreCoord();
+            /*
+            Если хотя бы одна из ячеек не дыра, то проверку прошёл.
+             */
+            if (isMovedInField(movable)) {
+                if (!game.getPlayingField().getPlayingFieldCells()[movable.getY()][movable.getX()].getClass().isInstance(Hole.class)) {
+                    return true;
+                }
+            }
+            movable.restoreCoord();
         }
 
         return false;
     }
 
+    /*
+    ПРоверка, что объект не вышел за границы игрового поля.
+     */
+    public boolean isMovedInField(Movable movable) {
+        return (movable.getX() >= 0 & movable.getY() >= 0 & movable.getX() < game.getNSize() & movable.getY() < game.getNSize()) ? true : false;
+    }
 
     private int distance(Movable movable1, Movable movable2) {
         return (Math.abs(movable1.getX() - movable2.getX()) + Math.abs(movable1.getY() - movable2.getY()));

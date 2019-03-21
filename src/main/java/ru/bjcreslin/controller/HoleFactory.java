@@ -17,8 +17,6 @@ public class HoleFactory extends GameObjectFactory {
 
     @Override
     public GameObject getNewGameObject() {
-        int x = new Random().nextInt(getGame().getNSize());
-        int y = new Random().nextInt(getGame().getNSize());
         return new Hole();
     }
 }

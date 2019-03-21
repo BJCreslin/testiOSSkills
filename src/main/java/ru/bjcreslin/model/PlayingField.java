@@ -1,6 +1,7 @@
 package ru.bjcreslin.model;
 
 import lombok.Getter;
+import lombok.Setter;
 
 
 /**
@@ -13,6 +14,7 @@ public class PlayingField {
     private int nSize;
 
     @Getter
+    @Setter
     private StaticAble[][] playingFieldCells; // Само игровое поле
 
     public PlayingField(int nSize) {
@@ -30,10 +32,19 @@ public class PlayingField {
         }
     }
 
+    public boolean setCell(int x, int y, StaticAble staticAble) {
+        if (!playingFieldCells[y][x].getClass().isInstance(Ground.class)) {
+            return false;
+        }
+        playingFieldCells[y][x] = staticAble;
+        return true;
+    }
+
     //Заполняем текущую клетку "землей"
     public void setGround(int xtemp, int ytemp) {
         playingFieldCells[ytemp][xtemp] = Ground.getInstance();
     }
+
 
     //ПРоверяем нахождение объекта Movable в пределах игрового поля
 //    public static boolean isObjectInField(Movable movableObject) {

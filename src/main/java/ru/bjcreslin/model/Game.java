@@ -5,10 +5,7 @@ import lombok.Data;
 import ru.bjcreslin.controller.*;
 import ru.bjcreslin.view.PaintScreen;
 
-import java.util.ArrayDeque;
-import java.util.ArrayList;
-import java.util.Deque;
-import java.util.List;
+import java.util.*;
 
 @Data
 public class Game {
@@ -63,50 +60,82 @@ public class Game {
         playerAlive = true;
     }
 
+    /*
+    Заполняем комнату дырками
+     */
     private void fillHole() {
+        GameObjectFactory holeFactory = new HoleFactory(this);
 
-    }
+        List<Hole> holeList = new ArrayList<>();
+        StaticAble[][] saveGameField = playingField.getPlayingFieldCells().clone();
+
+        boolean allHoleOnGround = false;
+        boolean playerNotInHoleEnviriment = false;
+        while (!(allHoleOnGround)) {
+            allHoleOnGround = false;
+            playerNotInHoleEnviriment = false;
+
+            playingField.setPlayingFieldCells(saveGameField);
+
+            for (int i = 0; i < nHole; i++) {
+                if (!playingField.setCell(new Random().nextInt(nSize), new Random().nextInt(nSize), ((Hole) holeFactory.getNewGameObject()))) {
+                    allHoleOnGround = false;
+                    break;
+                }
+                allHoleOnGround = true;
+            }
+            if (!allHoleOnGround) {
+                continue;
+            }
+
+            playerNotInHoleEnviriment = true;
+
+
+
+
+
+        }}
 
     /*
     Заполенение комнаты роботами
      */
-    private void fillRobotList(int nSize) {
-        GameObjectFactory robotFactory = new RobotFactory(this);
-        for (int i = 0; i < nSize; i++) {
-            Robot robot;
+        private void fillRobotList ( int nSize){
+            GameObjectFactory robotFactory = new RobotFactory(this);
+            for (int i = 0; i < nSize; i++) {
+                Robot robot;
             /*
             Создаём роботов, пока не выполнятся условия:
             1 .на стартовой позиции между игроком и ближайшими к нему роботами должно быть минимум 2 клетки.
             2. робот окружен дырками и не может двигаться;
              */
-            while (true) {
-                robot = (Robot) robotFactory.getNewGameObject();
-                if (checkStartCollision.isPlayerFar(robot)) {
-                    break;
+                while (true) {
+                    robot = (Robot) robotFactory.getNewGameObject();
+                    if (checkStartCollision.isPlayerFar(robot)) {
+                        break;
+                    }
                 }
+                robotList.add(robot);
             }
-            robotList.add(robot);
+
         }
 
+        public void play () {
+            movableQueue = makeQuee();
+            paintScreen.viewMatrix(ScreeenFieldMaker.gameSymbolsScreeenFieldMaker(playingField.getPlayingFieldCells(),
+                    movableQueue));
+
+        }
+
+        private Deque<Movable> makeQuee () {
+            Deque<Movable> movableQueue = new ArrayDeque<>();
+            movableQueue.addAll(robotList);
+            movableQueue.add(player);
+            return movableQueue;
+        }
+
+        public boolean isPlayerHere (Movable movable){
+            return ((movable.getX() == player.getX()) & (movable.getY() == player.getY())) ? true : false;
+        }
+
+
     }
-
-    public void play() {
-        movableQueue = makeQuee();
-        paintScreen.viewMatrix(ScreeenFieldMaker.gameSymbolsScreeenFieldMaker(playingField.getPlayingFieldCells(),
-                movableQueue));
-
-    }
-
-    private Deque<Movable> makeQuee() {
-        Deque<Movable> movableQueue = new ArrayDeque<>();
-        movableQueue.addAll(robotList);
-        movableQueue.add(player);
-        return movableQueue;
-    }
-
-    public boolean isPlayerHere(Movable movable) {
-        return ((movable.getX() == player.getX()) & (movable.getY() == player.getY())) ? true : false;
-    }
-
-
-}
