@@ -5,7 +5,15 @@ package ru.bjcreslin.model;
  */
 public class Player extends Movable implements GameObject {
 
+    /*
+       Изображение игрока - +;
+        */
+    private String symbolForview = "+";
 
+    @Override
+    public String getObjectSymbol() {
+        return symbolForview;
+    }
     //количество зарядов шокера
     private int numberShockerCharges;
 

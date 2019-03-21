@@ -5,6 +5,16 @@ package ru.bjcreslin.model;
  * Синглтон
  */
 class Ground extends StaticAble implements GameObject {
+    /*
+     Изображение земли - _;
+      */
+    private String symbolForview = " ";
+
+    @Override
+    public String getObjectSymbol() {
+        return symbolForview;
+    }
+
     /*   ПО земле могут ходить игрок и роботы
     земля не смертельна
     земля не обогащает игрока

@@ -10,6 +10,15 @@ import java.util.Random;
 
 
 public class Robot extends Movable implements GameObject {
+    /*
+     Изображение робота - +;
+      */
+    private String symbolForview = "X";
+    @Override
+    public String getObjectSymbol() {
+        return symbolForview;
+    }
+
     //Количество шагов парализации. Будет уменьшаться с каждым шагом, пока не достигнет 0.
     //Если равно 0, то робот может двигаться по игровому полю
     // При парализации становится равным 5

@@ -18,6 +18,7 @@ public class Game {
 
     private int score;//счёт игры
     private Player player;
+    private List<Robot>robotList;
 
 
     public Game(int nSize, int nPieceOfGold, int nHole, int nRobots) {
@@ -31,13 +32,14 @@ public class Game {
 
         this.player = new Player(nSize);
 
+
+
         //Делаем игрока живым
         playerAlive = true;
     }
 
     public boolean isPlayerHere(Movable movable) {
         return ((movable.getX() == player.getX()) & (movable.getY() == player.getY())) ? true : false;
-
     }
 
 }
