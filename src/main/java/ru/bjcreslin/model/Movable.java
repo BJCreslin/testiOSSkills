@@ -19,6 +19,8 @@ public abstract class Movable {
         this.y = y;
     }
 
+    public abstract String getObjectSymbol();
+
     abstract public void action();
 
 

@@ -1,11 +1,15 @@
 package ru.bjcreslin.view;
 
-import ru.bjcreslin.model.*;
 
-import java.util.List;
+import java.util.Arrays;
 
 public class paintsScreenMatrix extends PaintScreen {
-    public static void viewMatrix(GameObject[][] gameObjects) {
+    @Override
+    public void viewMatrix(String[][] gameObjects) {
+        for (String[] gameObject : gameObjects) {
+            Arrays.stream(gameObject, 0, gameObjects[0].length).forEach(System.out::print);
+            System.out.println();
+        }
 
 
     }

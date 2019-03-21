@@ -14,6 +14,7 @@ public class Robot extends Movable implements GameObject {
      Изображение робота - +;
       */
     private String symbolForview = "X";
+
     @Override
     public String getObjectSymbol() {
         return symbolForview;
@@ -49,35 +50,38 @@ public class Robot extends Movable implements GameObject {
         else {
             //сохраняем предыдущие координаты хода для возможной отмены
             saveCoordinate();
-
             moveRandom();
-/*
-todo переделать
- */
-            /* Если робот наезжает на игрока, то конец игры*/
-            if (PlayingField.isPlayerInField(this)) {
-                Game.setPlayerAlive(false);
-            } else {
-
-
-                if (PlayingField.canRobotMove(this) & PlayingField.isObjectInField(this)) {
-                    /* Заполняем старое расположение робота землей*/
-                    PlayingField.setGround(this.xtemp, this.ytemp);
-                } else {
-                 /* Если робот выезжает за пределы экрана или на кучу золота или дыру, то
-             возвращаем старые координаты*/
-                    restoreCoordinate();
-                }
-            }
         }
+
     }
+
+///*
+//todo переделать
+// */
+//            /* Если робот наезжает на игрока, то конец игры*/
+//            if (PlayingField.isPlayerInField(this)) {
+//                Game.setPlayerAlive(false);
+//            } else {
+//
+//
+//                if (PlayingField.canRobotMove(this) & PlayingField.isObjectInField(this)) {
+//                    /* Заполняем старое расположение робота землей*/
+//                    PlayingField.setGround(this.xtemp, this.ytemp);
+//                } else {
+//                 /* Если робот выезжает за пределы экрана или на кучу золота или дыру, то
+//             возвращаем старые координаты*/
+//                    restoreCoordinate();
+//                }
+//            }
+//        }
+    //  }
 
     private void saveCoordinate() {
         xtemp = this.getX();
         ytemp = this.getY();
     }
 
-    private void restoreCoordinate() {
+    public void restoreCoordinate() {
         setX(xtemp);
         setY(ytemp);
     }
