@@ -13,6 +13,8 @@ public abstract class Movable {
     private int y;
     private MoveDispatcher moveDispatcher;
 
+
+
     public Movable(int x, int y) {
         this.moveDispatcher = new MoveDispatcher();
         this.x = x;
@@ -24,4 +26,15 @@ public abstract class Movable {
     abstract public void action();
 
 
+    private int xtemp;
+    private int ytemp;
+    public void saveCoord() {
+        xtemp = this.getX();
+        ytemp = this.getY();
+    }
+
+    public void restroreCoord() {
+        setX(xtemp);
+        setY(ytemp);
+    }
 }

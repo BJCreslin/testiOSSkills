@@ -49,11 +49,13 @@ public class Robot extends Movable implements GameObject {
         //Иначе робот делает ход
         else {
             //сохраняем предыдущие координаты хода для возможной отмены
-            saveCoordinate();
+            saveCoord();
             moveRandom();
         }
 
     }
+
+
 
 ///*
 //todo переделать
@@ -76,19 +78,9 @@ public class Robot extends Movable implements GameObject {
 //        }
     //  }
 
-    private void saveCoordinate() {
-        xtemp = this.getX();
-        ytemp = this.getY();
-    }
-
-    public void restoreCoordinate() {
-        setX(xtemp);
-        setY(ytemp);
-    }
 
 
-    private int xtemp;
-    private int ytemp;
+
 
 
 }

@@ -8,11 +8,11 @@ import java.util.Map;
 import java.util.function.BiConsumer;
 
 
- class MoveDispatcher {
+ public class MoveDispatcher {
     @Getter
     private Map<Integer, BiConsumer<Integer, Integer>> consumerMap;
 
-     MoveDispatcher() {
+     public MoveDispatcher() {
         consumerMap = new HashMap<>();
         consumerMap.put(0, this::up);
         consumerMap.put(1, this::down);

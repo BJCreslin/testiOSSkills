@@ -3,6 +3,10 @@ package ru.bjcreslin.controller;
 import lombok.AllArgsConstructor;
 import ru.bjcreslin.model.Game;
 import ru.bjcreslin.model.Movable;
+import ru.bjcreslin.model.MoveDispatcher;
+
+import java.util.Map;
+import java.util.function.BiConsumer;
 
 @AllArgsConstructor
 public class CheckStartCollision {
@@ -20,8 +24,16 @@ public class CheckStartCollision {
      * @param movable
      * @return
      */
-    public boolean isEnvironment(Movable movable) {
-        return true;
+    public boolean isNotEnvironmentByHole(Movable movable) {
+        MoveDispatcher moveDispatcher = new MoveDispatcher();
+
+        for (Map.Entry<Integer, BiConsumer<Integer, Integer>> entry : moveDispatcher.getConsumerMap().entrySet()) {
+            movable.saveCoord();
+            entry.getValue().accept(movable.getX(), movable.getY());
+            movable.restroreCoord();
+        }
+
+        return false;
     }
 
 
