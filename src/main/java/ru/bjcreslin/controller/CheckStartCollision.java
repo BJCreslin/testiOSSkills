@@ -24,22 +24,15 @@ public class CheckStartCollision {
      */
     public boolean isNotEnvironmentByHole(Movable movable) {
         MoveDispatcher moveDispatcher = new MoveDispatcher();
+        StaticAble[][] staticAbles = game.getPlayingField().getPlayingFieldCells().clone();
+        Movable tempMovable = new Robot(movable.getX(), movable.getY());
 
-        //Проходим всеми ходами
         for (Map.Entry<Integer, BiConsumer<Integer, Integer>> entry : moveDispatcher.getConsumerMap().entrySet()) {
-            movable.saveCoord();
-            entry.getValue().accept(movable.getX(), movable.getY());
-            /*
-            Если хотя бы одна из ячеек не дыра, то проверку прошёл.
-             */
-            if (isMovedInField(movable)) {
-                if (!game.getPlayingField().getPlayingFieldCells()[movable.getY()][movable.getX()].getClass().isInstance(Hole.class)) {
-                    return true;
-                }
+            entry.getValue().accept(tempMovable.getX(), tempMovable.getY());
+            if ((staticAbles[tempMovable.getX()][tempMovable.getY()].isRobotCanMove())) {
+                return true;
             }
-            movable.restoreCoord();
         }
-
         return false;
     }
 

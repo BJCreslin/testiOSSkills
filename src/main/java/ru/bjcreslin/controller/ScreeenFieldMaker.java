@@ -12,6 +12,7 @@ public class ScreeenFieldMaker {
         String[][] gameObjects = new String[staticAblesField.length][staticAblesField.length];
          /*
     Формирует матрицу символов из матрицы статичных объектов
+    +добавляем рамку
      */
         for (int i = 0; i < gameObjects.length; i++) {
             for (int j = 0; j < gameObjects.length; j++) {

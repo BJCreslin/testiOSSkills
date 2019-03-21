@@ -26,7 +26,6 @@ public class Game {
     CheckStartCollision checkStartCollision; //Контроллер коллизий стартовых позиций
 
 
-    private int score;//счёт игры
     private Player player; // Игрок
     private List<Robot> robotList; //Лист роботов
 
@@ -51,12 +50,38 @@ public class Game {
 
         fillHole();
 
+        fillGold();
+
 
         this.robotList = new ArrayList<>();
-          fillRobotList(nSize);
+        fillRobotList(nSize);
 
         //Делаем игрока живым
         playerAlive = true;
+    }
+
+    /*
+    заполнение комнаты золотом
+     */
+    private void fillGold() {
+        CheckStartCollision checkStartCollision = new CheckStartCollision(this);
+
+        StaticAble[][] tempField = playingField.getPlayingFieldCells().clone();
+        while (true) {
+            for (int i = 0; i < nPieceOfGold; i++) {
+                Staticable staticable = new Staticable().invoke();
+                int x = staticable.getX();
+                int y = staticable.getY();
+                playingField.setCell(x, y, PieceOfGold.getInstance());
+            }
+            /*
+            Проверяем, может ли игрок двигаться, если может, то сохранем данные- выходим из цикла
+             */
+            if (checkStartCollision.isPlayerCanMoveStatic()) {
+                break;
+            }
+            playingField.setPlayingFieldCells(tempField.clone());
+        }
     }
 
     /*
@@ -65,26 +90,13 @@ public class Game {
     private void fillHole() {
         CheckStartCollision checkStartCollision = new CheckStartCollision(this);
 
-        Ground ground = Ground.getInstance();
-
-        int x;
-        int y;
 
         StaticAble[][] tempField = playingField.getPlayingFieldCells().clone();
         while (true) {
             for (int i = 0; i < nHole; i++) {
-            /*
-            перебираем переменные, пока по ним не будет ячейка -Земля и  в этой ячейке не будет игрока
-             */
-                while (true) {
-                    x = new Random().nextInt(nSize);
-                    y = new Random().nextInt(nSize);
-
-                    if ((playingField.getCell(x, y).equals(ground)) &
-                            (!player.isHere(x, y))) {
-                        break;
-                    }
-                }
+                Staticable staticable = new Staticable().invoke();
+                int x = staticable.getX();
+                int y = staticable.getY();
                 playingField.setCell(x, y, Hole.getInstance());
             }
             /*
@@ -111,7 +123,14 @@ public class Game {
              */
             while (true) {
                 robot = (Robot) robotFactory.getNewGameObject();
-                if (checkStartCollision.isPlayerFar(robot)) {
+                /*
+                робот на расстоянии от игрока
+                под роботом земля
+                робот может сделать ход
+                 */
+                if ((checkStartCollision.isPlayerFar(robot)) &
+                        (playingField.getCell(robot.getX(), robot.getY()).equals(Ground.getInstance())) &
+                        (checkStartCollision.isNotEnvironmentByHole(robot))) {
                     break;
                 }
             }
@@ -139,4 +158,32 @@ public class Game {
     }
 
 
+    private class Staticable {
+        private int x;
+        private int y;
+
+        public int getX() {
+            return x;
+        }
+
+        public int getY() {
+            return y;
+        }
+
+        public Staticable invoke() {
+    /*
+    перебираем переменные, пока по ним не будет ячейка -Земля и  в этой ячейке не будет игрока
+     */
+            while (true) {
+                x = new Random().nextInt(nSize);
+                y = new Random().nextInt(nSize);
+
+                if ((playingField.getCell(x, y).equals(Ground.getInstance())) &
+                        (!player.isHere(x, y))) {
+                    break;
+                }
+            }
+            return this;
+        }
+    }
 }
