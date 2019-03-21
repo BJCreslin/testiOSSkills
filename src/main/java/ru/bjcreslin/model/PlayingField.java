@@ -1,6 +1,6 @@
 package ru.bjcreslin.model;
 
-import lombok.Data;
+import lombok.Getter;
 
 
 /**
@@ -8,10 +8,11 @@ import lombok.Data;
  */
 //Генерируется комната, в ней случайно расставляются роботы, золото, дырки в полу и игрок.
 
-@Data
 
 public class PlayingField {
-    private static int nSize;
+    private int nSize;
+
+    @Getter
     private StaticAble[][] playingFieldCells; // Само игровое поле
 
     public PlayingField(int nSize) {
@@ -35,10 +36,10 @@ public class PlayingField {
     }
 
     //ПРоверяем нахождение объекта Movable в пределах игрового поля
-    public static boolean isObjectInField(Movable movableObject) {
-        return ((movableObject.getX() >= 0) & (movableObject.getY() >= 0) &
-                (movableObject.getX() < nSize) & (movableObject.getY() < nSize)) ? true : false;
-    }
+//    public static boolean isObjectInField(Movable movableObject) {
+//        return ((movableObject.getX() >= 0) & (movableObject.getY() >= 0) &
+//                (movableObject.getX() < nSize) & (movableObject.getY() < nSize)) ? true : false;
+//    }
 
 //    //Проверяем, находится ли по координатам объекта movable куча золота
 //    public static boolean isObjectInGold(Movable movable) {

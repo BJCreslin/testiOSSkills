@@ -22,7 +22,7 @@ public class Hole extends StaticAble implements GameObject {
     private static Hole instance;
 
 
-    private Hole() {
+    public Hole() {
         this.deathAble = true;
         this.playerCanMove = true;
         this.reachAble = false;
