@@ -22,7 +22,7 @@ public class ScreeenFieldMaker {
         Добавляем динамические объекты
          */
          {
-            movableQueue.stream().forEach(movable -> gameObjects[movable.getX()][movable.getY()] = movable.getObjectSymbol());
+            movableQueue.stream().forEach(movable -> gameObjects[movable.getY()][movable.getX()] = movable.getObjectSymbol());
         }
 
         return gameObjects;

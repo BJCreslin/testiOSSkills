@@ -22,6 +22,10 @@ public class PlayingField {
         playingFieldCells = new StaticAble[nSize][nSize];
     }
 
+    public StaticAble getCell(int x, int y) {
+        return playingFieldCells[y][x];
+    }
+
 
     //Заполняем все клетки "землей"
     public void fillAllCellsGround() {
@@ -32,12 +36,8 @@ public class PlayingField {
         }
     }
 
-    public boolean setCell(int x, int y, StaticAble staticAble) {
-        if (!playingFieldCells[y][x].getClass().isInstance(Ground.class)) {
-            return false;
-        }
+    public void setCell(int x, int y, StaticAble staticAble) {
         playingFieldCells[y][x] = staticAble;
-        return true;
     }
 
     //Заполняем текущую клетку "землей"

@@ -53,8 +53,7 @@ public class Game {
 
 
         this.robotList = new ArrayList<>();
-        fillRobotList(nSize);
-
+          fillRobotList(nSize);
 
         //Делаем игрока живым
         playerAlive = true;
@@ -64,78 +63,80 @@ public class Game {
     Заполняем комнату дырками
      */
     private void fillHole() {
-        GameObjectFactory holeFactory = new HoleFactory(this);
+        CheckStartCollision checkStartCollision = new CheckStartCollision(this);
 
-        List<Hole> holeList = new ArrayList<>();
-        StaticAble[][] saveGameField = playingField.getPlayingFieldCells().clone();
+        Ground ground = Ground.getInstance();
 
-        boolean allHoleOnGround = false;
-        boolean playerNotInHoleEnviriment = false;
-        while (!(allHoleOnGround)) {
-            allHoleOnGround = false;
-            playerNotInHoleEnviriment = false;
+        int x;
+        int y;
 
-            playingField.setPlayingFieldCells(saveGameField);
-
+        StaticAble[][] tempField = playingField.getPlayingFieldCells().clone();
+        while (true) {
             for (int i = 0; i < nHole; i++) {
-                if (!playingField.setCell(new Random().nextInt(nSize), new Random().nextInt(nSize), ((Hole) holeFactory.getNewGameObject()))) {
-                    allHoleOnGround = false;
-                    break;
+            /*
+            перебираем переменные, пока по ним не будет ячейка -Земля и  в этой ячейке не будет игрока
+             */
+                while (true) {
+                    x = new Random().nextInt(nSize);
+                    y = new Random().nextInt(nSize);
+
+                    if ((playingField.getCell(x, y).equals(ground)) &
+                            (!player.isHere(x, y))) {
+                        break;
+                    }
                 }
-                allHoleOnGround = true;
+                playingField.setCell(x, y, Hole.getInstance());
             }
-            if (!allHoleOnGround) {
-                continue;
+            /*
+            Проверяем, может ли игрок двигаться, если может, то сохранем данные- выходим из цикла
+             */
+            if (checkStartCollision.isPlayerCanMoveStatic()) {
+                break;
             }
-
-            playerNotInHoleEnviriment = true;
-
-
-
-
-
-        }}
+            playingField.setPlayingFieldCells(tempField.clone());
+        }
+    }
 
     /*
     Заполенение комнаты роботами
      */
-        private void fillRobotList ( int nSize){
-            GameObjectFactory robotFactory = new RobotFactory(this);
-            for (int i = 0; i < nSize; i++) {
-                Robot robot;
+    private void fillRobotList(int nSize) {
+        GameObjectFactory robotFactory = new RobotFactory(this);
+        for (int i = 0; i < nSize; i++) {
+            Robot robot;
             /*
             Создаём роботов, пока не выполнятся условия:
             1 .на стартовой позиции между игроком и ближайшими к нему роботами должно быть минимум 2 клетки.
             2. робот окружен дырками и не может двигаться;
              */
-                while (true) {
-                    robot = (Robot) robotFactory.getNewGameObject();
-                    if (checkStartCollision.isPlayerFar(robot)) {
-                        break;
-                    }
+            while (true) {
+                robot = (Robot) robotFactory.getNewGameObject();
+                if (checkStartCollision.isPlayerFar(robot)) {
+                    break;
                 }
-                robotList.add(robot);
             }
-
+            robotList.add(robot);
         }
-
-        public void play () {
-            movableQueue = makeQuee();
-            paintScreen.viewMatrix(ScreeenFieldMaker.gameSymbolsScreeenFieldMaker(playingField.getPlayingFieldCells(),
-                    movableQueue));
-
-        }
-
-        private Deque<Movable> makeQuee () {
-            Deque<Movable> movableQueue = new ArrayDeque<>();
-            movableQueue.addAll(robotList);
-            movableQueue.add(player);
-            return movableQueue;
-        }
-
-        public boolean isPlayerHere (Movable movable){
-            return ((movable.getX() == player.getX()) & (movable.getY() == player.getY())) ? true : false;
-        }
-
 
     }
+
+    public void play() {
+        movableQueue = makeQuee();
+        paintScreen.viewMatrix(ScreeenFieldMaker.gameSymbolsScreeenFieldMaker(playingField.getPlayingFieldCells(),
+                movableQueue));
+
+    }
+
+    private Deque<Movable> makeQuee() {
+        Deque<Movable> movableQueue = new ArrayDeque<>();
+        movableQueue.addAll(robotList);
+        movableQueue.add(player);
+        return movableQueue;
+    }
+
+    public boolean isPlayerHere(Movable movable) {
+        return ((movable.getX() == player.getX()) & (movable.getY() == player.getY())) ? true : false;
+    }
+
+
+}

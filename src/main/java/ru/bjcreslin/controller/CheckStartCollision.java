@@ -1,10 +1,7 @@
 package ru.bjcreslin.controller;
 
 import lombok.AllArgsConstructor;
-import ru.bjcreslin.model.Game;
-import ru.bjcreslin.model.Hole;
-import ru.bjcreslin.model.Movable;
-import ru.bjcreslin.model.MoveDispatcher;
+import ru.bjcreslin.model.*;
 
 import java.util.Map;
 import java.util.function.BiConsumer;
@@ -44,6 +41,26 @@ public class CheckStartCollision {
         }
 
         return false;
+    }
+
+    /*
+    Проверяем есть ли вокруг игрока статичесие ячейки, по которым игрок может ходить.
+    Если есть хоть одна, то возвращает true
+     */
+    public boolean isPlayerCanMoveStatic() {
+        MoveDispatcher moveDispatcher = new MoveDispatcher();
+        StaticAble[][] staticAbles = game.getPlayingField().getPlayingFieldCells().clone();
+        Player tempPlayer = new Player(game.getPlayer().getX(), game.getPlayer().getY());
+
+        for (Map.Entry<Integer, BiConsumer<Integer, Integer>> entry : moveDispatcher.getConsumerMap().entrySet()) {
+            entry.getValue().accept(tempPlayer.getX(), tempPlayer.getY());
+            if ((staticAbles[tempPlayer.getX()][tempPlayer.getY()].isPlayerCanMove()) &
+                    (!staticAbles[tempPlayer.getX()][tempPlayer.getY()].isDeathAble())) {
+                return true;
+            }
+        }
+        return false;
+
     }
 
     /*
