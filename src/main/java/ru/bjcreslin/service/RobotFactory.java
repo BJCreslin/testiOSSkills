@@ -1,8 +1,7 @@
-package ru.bjcreslin.controller;
+package ru.bjcreslin.service;
 
 import ru.bjcreslin.model.Game;
 import ru.bjcreslin.model.GameObject;
-import ru.bjcreslin.model.Movable;
 import ru.bjcreslin.model.Robot;
 
 import java.util.Random;

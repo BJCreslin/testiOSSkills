@@ -2,7 +2,7 @@ package ru.bjcreslin.model;
 
 
 import lombok.Data;
-import ru.bjcreslin.controller.*;
+import ru.bjcreslin.service.*;
 import ru.bjcreslin.view.PaintScreen;
 
 import java.util.*;
@@ -54,7 +54,7 @@ public class Game {
 
 
         this.robotList = new ArrayList<>();
-        fillRobotList(nSize);
+        fillRobotList(nRobots);
 
         //Делаем игрока живым
         playerAlive = true;

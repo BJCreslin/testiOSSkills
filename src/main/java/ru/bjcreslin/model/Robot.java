@@ -13,7 +13,7 @@ public class Robot extends Movable implements GameObject {
     /*
      Изображение робота - +;
       */
-    private String symbolForview = "X";
+    private String symbolForview = "ᛯ";
 
     @Override
     public String getObjectSymbol() {

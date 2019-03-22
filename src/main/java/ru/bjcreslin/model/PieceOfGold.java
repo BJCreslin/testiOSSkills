@@ -7,7 +7,7 @@ public class PieceOfGold extends StaticAble implements GameObject {
     /*
       Изображение кучи золота - +;
        */
-    private String symbolForview = "g";
+    private String symbolForview = "༆";
     @Override
     public String getObjectSymbol() {
         return symbolForview;

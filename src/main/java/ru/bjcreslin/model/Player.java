@@ -8,7 +8,7 @@ public class Player extends Movable implements GameObject {
     /*
        Изображение игрока - +;
         */
-    private String symbolForview = "+";
+    private String symbolForview = "1";
 
     @Override
     public String getObjectSymbol() {

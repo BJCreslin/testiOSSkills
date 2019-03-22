@@ -1,4 +1,4 @@
-package ru.bjcreslin.controller;
+package ru.bjcreslin.service;
 
 import ru.bjcreslin.model.Border;
 import ru.bjcreslin.model.Movable;

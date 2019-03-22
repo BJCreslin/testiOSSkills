@@ -1,4 +1,4 @@
-package ru.bjcreslin.controller;
+package ru.bjcreslin.service;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
