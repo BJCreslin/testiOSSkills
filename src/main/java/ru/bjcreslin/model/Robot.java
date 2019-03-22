@@ -58,11 +58,9 @@ public class Robot extends Movable implements GameObject {
             do {
                 restoreCoord();
                 moveRandom();
-                //todo тут неаботает . не выходит из цикла
                 if (!(game.checkMovableCollision.isMovedInField(this))) {
                     continue;
                 }
-
                 if (game.getPlayingField().getCell(this.getX(), this.getY()).isRobotCanMove()) {
                     break;
                 }
@@ -74,30 +72,6 @@ public class Robot extends Movable implements GameObject {
                 game.slayPlayer();
             }
         }
-
     }
-
-
-///*
-//todo переделать
-// */
-//            /* Если робот наезжает на игрока, то конец игры*/
-//            if (PlayingField.isPlayerInCell(this)) {
-//                Game.setPlayerAlive(false);
-//            } else {
-//
-//
-//                if (PlayingField.canRobotMove(this) & PlayingField.isObjectInField(this)) {
-//                    /* Заполняем старое расположение робота землей*/
-//                    PlayingField.setGround(this.xtemp, this.ytemp);
-//                } else {
-//                 /* Если робот выезжает за пределы экрана или на кучу золота или дыру, то
-//             возвращаем старые координаты*/
-//                    restoreCoordinate();
-//                }
-//            }
-//        }
-//  }
-
 
 }

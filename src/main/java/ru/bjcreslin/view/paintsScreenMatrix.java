@@ -12,8 +12,21 @@ public class paintsScreenMatrix extends PaintScreen {
             Arrays.stream(gameObject, 0, gameObjects[0].length).forEach(ConsoleService::print);
             ConsoleService.crlf();
         }
+    }
 
+    @Override
+    public void viewScore(int gold) {
+        ConsoleService.println("Остаток золота: "+ gold);
+    }
 
+    @Override
+    public void viewWin() {
+        ConsoleService.println("You WIN!");
+    }
+
+    @Override
+    public void viewLose() {
+        ConsoleService.println("You Lose!");
     }
 
 

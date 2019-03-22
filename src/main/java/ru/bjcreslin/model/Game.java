@@ -143,11 +143,18 @@ public class Game {
     Основной метод игрв
      */
     public void play() {
-        while (playerAlive) {
+        while (playerAlive & (nPieceOfGold > 0)) {
             movableQueue = makeQuee();
             paintScreen.viewMatrix(ScreeenFieldMaker.gameSymbolsScreeenFieldMaker(playingField.getPlayingFieldCells(),
                     movableQueue));
+            paintScreen.viewScore(nPieceOfGold);
             robotList.stream().forEach(Robot::action);
+        }
+
+        if (playerAlive) {
+            paintScreen.viewWin();
+        } else {
+            paintScreen.viewLose();
         }
     }
 
@@ -157,7 +164,6 @@ public class Game {
         movableQueue.add(player);
         return movableQueue;
     }
-
 
 
     public void slayPlayer() {
