@@ -6,6 +6,7 @@ public class ConsoleService {
     }
 
     public static void crlf() {
+        System.out.println();
     }
 
     public static void println(String text) {

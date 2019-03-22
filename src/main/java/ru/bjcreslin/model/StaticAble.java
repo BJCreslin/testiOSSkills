@@ -11,4 +11,5 @@ public abstract class StaticAble {
     boolean playerCanMove;
     boolean deathAble;
     boolean reachAble;
+
 }

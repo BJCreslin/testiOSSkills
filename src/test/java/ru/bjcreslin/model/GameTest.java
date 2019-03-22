@@ -6,7 +6,6 @@ import org.junit.Test;
 import ru.bjcreslin.view.PaintScreen;
 import ru.bjcreslin.view.paintsScreenMatrix;
 
-import static org.junit.Assert.*;
 
 public class GameTest {
     PaintScreen paintScreen;

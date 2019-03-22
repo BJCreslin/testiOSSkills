@@ -25,18 +25,20 @@ public class Robot extends Movable implements GameObject {
     // При парализации становится равным 5
     @Getter
     private int numberOfStepsParalyze;
+    private Game game;
 
     //Новый робот не парализован, и создается в координатах
-    public Robot(int x, int y) {
+    public Robot(Game game, Integer x, Integer y) {
         super(x, y);
         this.numberOfStepsParalyze = 0;
+        this.game = game;
     }
 
     /*
     Хождние робота - случайное.
      */
-    private void moveRandom() {
-        getMoveDispatcher().getConsumerMap().get(new Random().nextInt(3));
+    public void moveRandom() {
+        getMoveDispatcher().getConsumerMap().get(new Random().nextInt(4)).accept(this);
     }
 
 
@@ -50,11 +52,30 @@ public class Robot extends Movable implements GameObject {
         else {
             //сохраняем предыдущие координаты хода для возможной отмены
             saveCoord();
-            moveRandom();
+
+            /*пытаемся сделать ход, что бы робот не выходил за игровое поле и
+             и на новое поле робот может заезжать*/
+            do {
+                restoreCoord();
+                moveRandom();
+                //todo тут неаботает . не выходит из цикла
+                if (!(game.checkMovableCollision.isPlayerInField(this))) {
+                    continue;
+                }
+
+                if (game.getPlayingField().getCell(this.getX(), this.getY()).isRobotCanMove()) {
+                    break;
+                }
+            }
+            while (true);
+
+            //Если робот догоняет игрока, то убивает его.
+            if (game.checkMovableCollision.isPlayerInField(this)) {
+                game.slayPlayer();
+            }
         }
 
     }
-
 
 
 ///*
@@ -76,11 +97,7 @@ public class Robot extends Movable implements GameObject {
 //                }
 //            }
 //        }
-    //  }
-
-
-
-
+//  }
 
 
 }

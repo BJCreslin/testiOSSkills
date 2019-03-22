@@ -6,13 +6,14 @@ import lombok.Getter;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.function.BiConsumer;
+import java.util.function.Consumer;
 
 
- public class MoveDispatcher {
+public class MoveDispatcher {
     @Getter
-    private Map<Integer, BiConsumer<Integer, Integer>> consumerMap;
+    private Map<Integer, Consumer<Movable>> consumerMap;
 
-     public MoveDispatcher() {
+    public MoveDispatcher() {
         consumerMap = new HashMap<>();
         consumerMap.put(0, this::up);
         consumerMap.put(1, this::down);
@@ -21,23 +22,23 @@ import java.util.function.BiConsumer;
     }
 
     //Увеличиваем координату y - движение вверх
-    void up(Integer x, Integer y) {
-        y++;
+    void up(Movable movable) {
+        movable.setY(1 + movable.getY().intValue());
     }
 
     //Уменьшаем координату y - движение вниз
-    void down(Integer x, Integer y) {
-        y--;
+    void down(Movable movable) {
+        movable.setY(movable.getY() - 1);
     }
 
     //Увеличиваем координату x - движение вправо
-    void right(Integer x, Integer y) {
-        x++;
+    void right(Movable movable) {
+        movable.setX(movable.getX() + 1);
     }
 
     //Увеличиваем координату x - движение вправо
-    void left(Integer x, Integer y) {
-        x--;
+    void left(Movable movable) {
+        movable.setX(movable.getX() - 1);
     }
 
 }

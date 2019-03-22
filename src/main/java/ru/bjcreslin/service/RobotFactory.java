@@ -16,6 +16,6 @@ public class RobotFactory extends GameObjectFactory {
     public GameObject getNewGameObject() {
         int x = new Random().nextInt(getGame().getNSize());
         int y = new Random().nextInt(getGame().getNSize());
-        return new Robot(x, y);
+        return new Robot(super.getGame(), x, y);
     }
 }

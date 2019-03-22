@@ -2,20 +2,24 @@ package ru.bjcreslin.model;
 
 import lombok.Data;
 import lombok.Getter;
+import lombok.Setter;
 
 /*
 Двигающиеся объекты такие как игрок, роботы хранят свои координаты в себе.
  */
-@Data
 public abstract class Movable {
     //координаты двигающегося объекта
-    private int x;
-    private int y;
+    @Getter
+    @Setter
+    private Integer x;
+    @Getter
+    @Setter
+    private Integer y;
+    @Getter
     private MoveDispatcher moveDispatcher;
 
 
-
-    public Movable(int x, int y) {
+    public Movable(Integer x, Integer y) {
         this.moveDispatcher = new MoveDispatcher();
         this.x = x;
         this.y = y;
@@ -25,9 +29,11 @@ public abstract class Movable {
 
     abstract public void action();
 
+    @Setter
+    private Integer xtemp;
+    @Setter
+    private Integer ytemp;
 
-    private int xtemp;
-    private int ytemp;
     public void saveCoord() {
         xtemp = this.getX();
         ytemp = this.getY();

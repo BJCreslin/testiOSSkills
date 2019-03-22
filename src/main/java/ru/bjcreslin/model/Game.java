@@ -139,11 +139,16 @@ public class Game {
 
     }
 
+    /*
+    Основной метод игрв
+     */
     public void play() {
-        movableQueue = makeQuee();
-        paintScreen.viewMatrix(ScreeenFieldMaker.gameSymbolsScreeenFieldMaker(playingField.getPlayingFieldCells(),
-                movableQueue));
-
+        while (playerAlive) {
+            movableQueue = makeQuee();
+            paintScreen.viewMatrix(ScreeenFieldMaker.gameSymbolsScreeenFieldMaker(playingField.getPlayingFieldCells(),
+                    movableQueue));
+            robotList.stream().forEach(Robot::action);
+        }
     }
 
     private Deque<Movable> makeQuee() {
@@ -153,8 +158,10 @@ public class Game {
         return movableQueue;
     }
 
-    public boolean isPlayerHere(Movable movable) {
-        return ((movable.getX() == player.getX()) & (movable.getY() == player.getY())) ? true : false;
+
+
+    public void slayPlayer() {
+        playerAlive = false;
     }
 
 
