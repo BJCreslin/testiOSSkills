@@ -20,6 +20,7 @@ public class PlayingField {
     public PlayingField(int nSize) {
         this.nSize = nSize;
         playingFieldCells = new StaticAble[nSize][nSize];
+        fillAllCellsGround();
     }
 
     public StaticAble getCell(int x, int y) {
@@ -28,7 +29,7 @@ public class PlayingField {
 
 
     //Заполняем все клетки "землей"
-    public void fillAllCellsGround() {
+    private void fillAllCellsGround() {
         for (int i = 0; i < nSize; i++) {
             for (int j = 0; j < nSize; j++) {
                 setGround(i, j);
@@ -36,39 +37,16 @@ public class PlayingField {
         }
     }
 
-    public void setCell(int x, int y, StaticAble staticAble) {
+    void setCell(int x, int y, StaticAble staticAble) {
         playingFieldCells[y][x] = staticAble;
     }
 
     //Заполняем текущую клетку "землей"
-    public void setGround(int xtemp, int ytemp) {
+    void setGround(int xtemp, int ytemp) {
         playingFieldCells[ytemp][xtemp] = Ground.getInstance();
     }
 
 
-    //ПРоверяем нахождение объекта Movable в пределах игрового поля
-//    public static boolean isObjectInField(Movable movableObject) {
-//        return ((movableObject.getX() >= 0) & (movableObject.getY() >= 0) &
-//                (movableObject.getX() < nSize) & (movableObject.getY() < nSize)) ? true : false;
-//    }
-
-//    //Проверяем, находится ли по координатам объекта movable куча золота
-//    public static boolean isObjectInGold(Movable movable) {
-//        return playingFieldCells[movable.getY()][movable.getX()].getClass().isInstance(PieceOfGold.class);
-//    }
-//
-//    //Проверяем, находится ли по координатам объекта movable дыра
-//    public static boolean isObjectInHole(Movable movable) {
-//        return playingFieldCells[movable.getY()][movable.getX()].getClass().isInstance(Hole.class);
-//    }
-//    //Проверяем, находится ли по координатам объекта игрок
-//    public static boolean isPlayerInCell(Movable movable) {
-//        return playingFieldCells[movable.getY()][movable.getX()].getClass().isInstance(Player.class);
-//    }
-//
-
-//    public static boolean canRobotMove(Movable movable){
-//       return playingFieldCells[movable.getY()][movable.getX()].robotCanMove;
 
 }
 

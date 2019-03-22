@@ -41,7 +41,6 @@ public class Game {
         this.paintScreen = paintScreen;
 
         this.playingField = new PlayingField(nSize);
-        playingField.fillAllCellsGround();
 
         this.checkStartCollision = new CheckStartCollision(this);
         this.checkMovableCollision = new CheckMovableCollision(this);
@@ -168,7 +167,7 @@ public class Game {
     }
 
     public void slayPlayer() {
-        playerAlive = false;
+        setPlayerAlive(false);
     }
 
     private class Staticable {
