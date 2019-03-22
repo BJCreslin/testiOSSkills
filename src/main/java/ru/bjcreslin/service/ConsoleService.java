@@ -1,5 +1,8 @@
 package ru.bjcreslin.service;
 
+import java.io.IOException;
+import java.util.Scanner;
+
 public class ConsoleService {
     public static void print(String text) {
         System.out.print(text);
@@ -11,5 +14,20 @@ public class ConsoleService {
 
     public static void println(String text) {
         System.out.println(text);
+    }
+
+    public static int inputOneNumber() {
+        int readSymbol;
+        Scanner sc =new Scanner(System.in);
+        while (true) {
+            try {
+                 readSymbol = sc.nextInt();
+
+                break;
+            } catch (Exception e) {
+                sc.next();
+            }
+        }
+        return readSymbol;
     }
 }

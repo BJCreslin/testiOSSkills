@@ -140,7 +140,7 @@ public class Game {
     }
 
     /*
-    Основной метод игрв
+    Основной метод игры
      */
     public void play() {
         while (playerAlive & (nPieceOfGold > 0)) {
@@ -148,7 +148,9 @@ public class Game {
             paintScreen.viewMatrix(ScreeenFieldMaker.gameSymbolsScreeenFieldMaker(playingField.getPlayingFieldCells(),
                     movableQueue));
             paintScreen.viewScore(nPieceOfGold);
+            player.action();
             robotList.stream().forEach(Robot::action);
+
         }
 
         if (playerAlive) {
@@ -165,11 +167,9 @@ public class Game {
         return movableQueue;
     }
 
-
     public void slayPlayer() {
         playerAlive = false;
     }
-
 
     private class Staticable {
         private int x;

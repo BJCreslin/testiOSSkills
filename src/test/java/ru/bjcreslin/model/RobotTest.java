@@ -7,7 +7,6 @@ import ru.bjcreslin.service.RobotFactory;
 import ru.bjcreslin.view.PaintScreen;
 import ru.bjcreslin.view.paintsScreenMatrix;
 
-import static org.junit.Assert.*;
 
 public class RobotTest {
     RobotFactory robotFactory;

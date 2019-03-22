@@ -30,7 +30,7 @@ public class CheckStartCollision {
      * @return возможность пройти
      */
     public boolean isNotEnvironmentByHole(Movable movable) {
-        MoveDispatcher moveDispatcher = new MoveDispatcher();
+        MoveDispatcher moveDispatcher = movable.getMoveDispatcher();
         Movable tempMovable = new Robot(game, movable.getX(), movable.getY());
 
         for (Map.Entry<Integer, Consumer<Movable>> entry : moveDispatcher.getConsumerMap().entrySet()) {
@@ -46,12 +46,14 @@ public class CheckStartCollision {
     /**
      * Проверяем есть ли вокруг игрока статичесие ячейки, по которым игрок может безопасно ходить.
      * Если есть хоть одна, то возвращает true
+     *
      * @return возможность сделать ход
      */
     public boolean isPlayerCanMoveStatic() {
-        MoveDispatcher moveDispatcher = new MoveDispatcher();
+
         StaticAble[][] staticAbles = game.getPlayingField().getPlayingFieldCells().clone();
         Player tempPlayer = new Player(game.getPlayer().getX(), game.getPlayer().getY());
+        MoveDispatcher moveDispatcher = tempPlayer.getMoveDispatcher();
 
         for (Map.Entry<Integer, Consumer<Movable>> entry : moveDispatcher.getConsumerMap().entrySet()) {
             entry.getValue().accept(tempPlayer);
@@ -68,7 +70,7 @@ public class CheckStartCollision {
      * Измеряет расстояние между двумя Movable объектами
      *
      * @param movable1 робот или игрок
-     * @param movable2  робот или игрок
+     * @param movable2 робот или игрок
      * @return расстояние в ходах
      */
     private int distance(Movable movable1, Movable movable2) {

@@ -8,7 +8,7 @@ import ru.bjcreslin.view.paintsScreenMatrix;
 
 
 public class GameTest {
-    PaintScreen paintScreen;
+    private PaintScreen paintScreen;
 
     @Before
     public void name() {

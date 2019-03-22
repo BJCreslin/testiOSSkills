@@ -7,21 +7,20 @@ import ru.bjcreslin.service.RobotFactory;
 import ru.bjcreslin.view.PaintScreen;
 import ru.bjcreslin.view.paintsScreenMatrix;
 
-import static org.junit.Assert.*;
 
 public class MoveDispatcherTest {
-    MoveDispatcher moveDispatcher;
-    Robot robot;
-    Integer x;
-    Integer y;
-    int ytemp;
-    int xtemp;
+    private MoveDispatcher moveDispatcher;
+    private Robot robot;
+    private Integer x;
+    private Integer y;
+    private int ytemp;
+    private int xtemp;
 
     @Before
-    public void setUp() throws Exception {
+    public void setUp() {
         PaintScreen paintScreen = new paintsScreenMatrix();
         Game game = new Game(paintScreen, 20, 5, 4, 1);
-        moveDispatcher = new MoveDispatcher();
+        moveDispatcher =  MoveDispatcher.getInstance();
 
         RobotFactory robotFactory = new RobotFactory(game);
         robot = (Robot) robotFactory.getNewGameObject();
