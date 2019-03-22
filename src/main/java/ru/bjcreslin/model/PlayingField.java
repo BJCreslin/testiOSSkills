@@ -62,7 +62,7 @@ public class PlayingField {
 //        return playingFieldCells[movable.getY()][movable.getX()].getClass().isInstance(Hole.class);
 //    }
 //    //Проверяем, находится ли по координатам объекта игрок
-//    public static boolean isPlayerInField(Movable movable) {
+//    public static boolean isPlayerInCell(Movable movable) {
 //        return playingFieldCells[movable.getY()][movable.getX()].getClass().isInstance(Player.class);
 //    }
 //

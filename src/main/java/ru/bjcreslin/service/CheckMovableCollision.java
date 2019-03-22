@@ -14,7 +14,7 @@ public class CheckMovableCollision {
      * @param movable
      * @return нахождение игрока и movable в одной клетке
      */
-    public boolean isPlayerInField(Movable movable) {
+    public boolean isPlayerInCell(Movable movable) {
         return ((movable.getX() == game.getPlayer().getX()) & (movable.getY() == game.getPlayer().getY()));
     }
 

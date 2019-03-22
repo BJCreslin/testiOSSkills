@@ -59,7 +59,7 @@ public class Robot extends Movable implements GameObject {
                 restoreCoord();
                 moveRandom();
                 //todo тут неаботает . не выходит из цикла
-                if (!(game.checkMovableCollision.isPlayerInField(this))) {
+                if (!(game.checkMovableCollision.isMovedInField(this))) {
                     continue;
                 }
 
@@ -70,7 +70,7 @@ public class Robot extends Movable implements GameObject {
             while (true);
 
             //Если робот догоняет игрока, то убивает его.
-            if (game.checkMovableCollision.isPlayerInField(this)) {
+            if (game.checkMovableCollision.isPlayerInCell(this)) {
                 game.slayPlayer();
             }
         }
@@ -82,7 +82,7 @@ public class Robot extends Movable implements GameObject {
 //todo переделать
 // */
 //            /* Если робот наезжает на игрока, то конец игры*/
-//            if (PlayingField.isPlayerInField(this)) {
+//            if (PlayingField.isPlayerInCell(this)) {
 //                Game.setPlayerAlive(false);
 //            } else {
 //
