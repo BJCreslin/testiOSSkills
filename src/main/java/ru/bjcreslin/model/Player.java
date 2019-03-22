@@ -8,7 +8,11 @@ public class Player extends Movable implements GameObject {
     /*
        Изображение игрока - +;
         */
-    private String symbolForview = "1";
+    private String symbolForview;
+
+    {
+        symbolForview = "1";
+    }
 
     @Override
     public String getObjectSymbol() {
@@ -28,7 +32,7 @@ public class Player extends Movable implements GameObject {
     }
 
 
-    public Player(int nSize) {
+     Player(int nSize) {
         //Игрок всегда начинает с центра комнаты.
         super((int) (nSize / 2.), (int) (nSize / 2.));
 
@@ -41,7 +45,7 @@ public class Player extends Movable implements GameObject {
         super(x, y);
     }
 
-    public boolean isHere(int x, int y) {
-        return ((x == this.getX()) & (y == this.getY())) ? true : false;
+     boolean isHere(int x, int y) {
+        return (x == this.getX()) & (y == this.getY());
     }
 }

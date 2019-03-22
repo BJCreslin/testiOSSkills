@@ -7,7 +7,11 @@ public class Border extends StaticAble {
     /*
   Изображение
    */
-    private String symbolForview = "#";
+    private final String symbolForview;
+
+    {
+        symbolForview = "#";
+    }
 
     @Override
     public String getObjectSymbol() {
@@ -16,7 +20,7 @@ public class Border extends StaticAble {
 
     private static Border instance;
 
-    public Border() {
+    private Border() {
         this.deathAble = false;
         this.playerCanMove = false;
         this.reachAble = false;

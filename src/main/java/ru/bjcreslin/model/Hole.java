@@ -7,7 +7,11 @@ public class Hole extends StaticAble implements GameObject {
     /*
     Изображение дыры-0;
      */
-    private String symbolForview = "0";
+    private final String symbolForview;
+
+    {
+        symbolForview = "0";
+    }
 
     @Override
     public String getObjectSymbol() {
@@ -22,14 +26,14 @@ public class Hole extends StaticAble implements GameObject {
     private static Hole instance;
 
 
-    public Hole() {
+    private Hole() {
         this.deathAble = true;
         this.playerCanMove = true;
         this.reachAble = false;
         this.robotCanMove = false;
     }
 
-    public static Hole getInstance() {
+    static Hole getInstance() {
         if (instance == null) {
             instance = new Hole();
         }

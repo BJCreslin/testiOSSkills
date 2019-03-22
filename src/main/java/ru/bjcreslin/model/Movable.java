@@ -1,11 +1,10 @@
 package ru.bjcreslin.model;
 
-import lombok.Data;
 import lombok.Getter;
 import lombok.Setter;
 
 /*
-Двигающиеся объекты такие как игрок, роботы хранят свои координаты в себе.
+Двигающиеся объекты такие как игрок, роботы. хранят свои координаты в себе.
  */
 public abstract class Movable {
     //координаты двигающегося объекта
@@ -15,32 +14,33 @@ public abstract class Movable {
     @Getter
     @Setter
     private Integer y;
+    //Диспетчер движений
     @Getter
     private MoveDispatcher moveDispatcher;
 
 
-    public Movable(Integer x, Integer y) {
-        this.moveDispatcher = new MoveDispatcher();
+    Movable(Integer x, Integer y) {
+        this.moveDispatcher = MoveDispatcher.getInstance();
         this.x = x;
         this.y = y;
+    }
+
+
+    // Хранение и восстановление временных координат. (нужно для виртуальных ходов....)
+    private Integer xtemp;
+    private Integer ytemp;
+
+    void saveCoord() {
+        xtemp = this.getX();
+        ytemp = this.getY();
+    }
+
+    void restoreCoord() {
+        setX(xtemp);
+        setY(ytemp);
     }
 
     public abstract String getObjectSymbol();
 
     abstract public void action();
-
-    @Setter
-    private Integer xtemp;
-    @Setter
-    private Integer ytemp;
-
-    public void saveCoord() {
-        xtemp = this.getX();
-        ytemp = this.getY();
-    }
-
-    public void restoreCoord() {
-        setX(xtemp);
-        setY(ytemp);
-    }
 }

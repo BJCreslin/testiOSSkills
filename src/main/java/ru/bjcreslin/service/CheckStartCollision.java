@@ -4,7 +4,6 @@ import lombok.AllArgsConstructor;
 import ru.bjcreslin.model.*;
 
 import java.util.Map;
-import java.util.function.BiConsumer;
 import java.util.function.Consumer;
 
 @AllArgsConstructor
@@ -14,7 +13,7 @@ public class CheckStartCollision {
     /**
      * проверка условия : на стартовой позиции между игроком и ближайшими к нему роботами должно быть минимум 2 клетки.
      *
-     * @param movable
+     * @param movable робот или другой объект
      * @return больше ли чем две клетки до игрока
      */
 
@@ -27,7 +26,7 @@ public class CheckStartCollision {
      * В проверяемом месте создаем робота и пытаемся пройти по всем возможным для него ходам.
      * Если хоть по одному можно пройти, то результат - true
      *
-     * @param movable
+     * @param movable робот
      * @return возможность пройти
      */
     public boolean isNotEnvironmentByHole(Movable movable) {
@@ -47,8 +46,7 @@ public class CheckStartCollision {
     /**
      * Проверяем есть ли вокруг игрока статичесие ячейки, по которым игрок может безопасно ходить.
      * Если есть хоть одна, то возвращает true
-     *
-     * @return возможность
+     * @return возможность сделать ход
      */
     public boolean isPlayerCanMoveStatic() {
         MoveDispatcher moveDispatcher = new MoveDispatcher();
@@ -63,16 +61,15 @@ public class CheckStartCollision {
             }
         }
         return false;
-
     }
 
 
     /**
      * Измеряет расстояние между двумя Movable объектами
      *
-     * @param movable1
-     * @param movable2
-     * @return расстояни в ходах
+     * @param movable1 робот или игрок
+     * @param movable2  робот или игрок
+     * @return расстояние в ходах
      */
     private int distance(Movable movable1, Movable movable2) {
         return (Math.abs(movable1.getX() - movable2.getX()) + Math.abs(movable1.getY() - movable2.getY()));

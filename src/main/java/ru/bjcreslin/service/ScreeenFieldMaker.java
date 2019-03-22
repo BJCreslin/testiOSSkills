@@ -8,8 +8,16 @@ import java.util.Deque;
 
 public class ScreeenFieldMaker {
 
-
+    /**
+     * Делает матрицу игровых объектов
+     * @param staticAblesField  матрица статичных объектов
+     * @param movableQueue -набор динамичных объектов
+     * @return матрица символов игровых объектов
+     */
     public static String[][] gameSymbolsScreeenFieldMaker(StaticAble[][] staticAblesField, Deque<Movable> movableQueue) {
+        /*
+        Размер больше исходной матрицы. Это надо добавления границы.
+         */
         String[][] gameObjects = new String[staticAblesField.length + 2][staticAblesField.length + 2];
          /*
     Формирует матрицу символов из матрицы статичных объектов
@@ -24,7 +32,7 @@ public class ScreeenFieldMaker {
         Добавляем динамические объекты
          */
 
-        movableQueue.stream().forEach(movable -> gameObjects[movable.getY() + 1][movable.getX() + 1] = movable.getObjectSymbol());
+        movableQueue.forEach(movable -> gameObjects[movable.getY() + 1][movable.getX() + 1] = movable.getObjectSymbol());
 
         /*
         Добавляем границу поля

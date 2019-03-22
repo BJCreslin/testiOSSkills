@@ -5,9 +5,14 @@ package ru.bjcreslin.model;
  */
 public class PieceOfGold extends StaticAble implements GameObject {
     /*
-      Изображение кучи золота - +;
+      Изображение кучи золота ;
        */
-    private String symbolForview = "༆";
+    private String symbolForview;
+
+    {
+        symbolForview = "༆";
+    }
+
     @Override
     public String getObjectSymbol() {
         return symbolForview;
@@ -27,7 +32,7 @@ public class PieceOfGold extends StaticAble implements GameObject {
         this.robotCanMove = false;
     }
 
-    public static PieceOfGold getInstance() {
+    static PieceOfGold getInstance() {
         if (instance == null) {
             instance = new PieceOfGold();
         }
