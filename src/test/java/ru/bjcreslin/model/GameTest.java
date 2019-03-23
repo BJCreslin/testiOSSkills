@@ -30,7 +30,7 @@ public class GameTest {
         int nSize = 20;
         GameParametres gameParametres = new GameParametres(nSize, 5, 4, 4);
         game = new Game(paintScreen, gameParametres);
-        Assert.assertEquals(game.playingField.getPlayingFieldCells().length, nSize);
+        Assert.assertEquals(game.getPlayingField().getPlayingFieldCells().length, nSize);
     }
 
     @Test

@@ -89,12 +89,12 @@ public class Player extends Movable implements GameObject {
             case 5:
                 fire();
         }
-        if (game.checkMovableCollision.isMovedInField(this)) {
-            if (game.playingField.getCell(getX(), getY()).isDeathAble()) {
+        if (game.getCheckMovableCollision().isMovedInField(this)) {
+            if (game.getPlayingField().getCell(getX(), getY()).isDeathAble()) {
                 game.setPlayerAlive(false);
-            } else if (game.playingField.getCell(getX(), getY()).reachAble) {
+            } else if (game.getPlayingField().getCell(getX(), getY()).reachAble) {
                 game.setNPieceOfGold(game.getNPieceOfGold() - 1);
-                game.playingField.setGround(getX(), getY());
+                game.getPlayingField().setGround(getX(), getY());
             }
 
         } else {

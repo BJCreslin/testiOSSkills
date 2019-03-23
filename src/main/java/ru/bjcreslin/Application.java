@@ -9,12 +9,14 @@ import ru.bjcreslin.view.paintsScreenMatrix;
 public class Application {
 
     public static void main(String[] args) {
-        //(int nSize, int nPieceOfGold, int nHole, int nRobots)
         PaintScreen paintScreen = new paintsScreenMatrix();
         GameService gameService = new GameService();
         GameParametres gameParametres;
         while ((gameService.getGameParametres()).isRepeatGame()) {
             gameParametres = gameService.startMenu();
+            if (!gameParametres.isRepeatGame()) {
+                break;
+            }
             Game game = new Game(paintScreen, gameParametres);
             game.play();
         }
