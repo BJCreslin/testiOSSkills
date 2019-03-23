@@ -18,7 +18,7 @@ public class CheckStartCollision {
      */
 
     public boolean isPlayerFar(Movable movable) {
-        return (distance(movable, game.getPlayer()) > 2);
+        return (distance(movable, game.getPlayer()) > 3);
     }
 
     /**
@@ -74,7 +74,8 @@ public class CheckStartCollision {
      * @return расстояние в ходах
      */
     private int distance(Movable movable1, Movable movable2) {
-        return (Math.abs(movable1.getX() - movable2.getX()) + Math.abs(movable1.getY() - movable2.getY()));
+        return (int) Math.sqrt((movable1.getX() - movable2.getX()) * (movable1.getX() - movable2.getX()) +
+                (movable1.getY() - movable2.getY()) * (movable1.getY() - movable2.getY()));
     }
 
 }

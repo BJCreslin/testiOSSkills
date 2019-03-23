@@ -15,7 +15,8 @@ public class RobotTest {
     @Before
     public void beforeTest() {
         PaintScreen paintScreen = new paintsScreenMatrix();
-        game = new Game(paintScreen, 20, 5, 4, 1);
+        GameParametres gameParametres = new GameParametres(20, 5, 4, 1);
+        game = new Game(paintScreen, gameParametres);
         robotFactory = new RobotFactory(game);
     }
 

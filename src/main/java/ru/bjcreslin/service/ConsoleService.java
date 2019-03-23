@@ -18,16 +18,24 @@ public class ConsoleService {
 
     public static int inputOneNumber() {
         int readSymbol;
-        Scanner sc =new Scanner(System.in);
+        Scanner sc = new Scanner(System.in);
         while (true) {
             try {
-                 readSymbol = sc.nextInt();
-
+                readSymbol = sc.nextInt();
                 break;
             } catch (Exception e) {
                 sc.next();
             }
         }
         return readSymbol;
+    }
+
+
+    public static void printMenu() {
+        println("Стартовое меню");
+        println("выбор пункта меню цифрами");
+        println("1. Запуск игры.");
+        println("2. Настройки.");
+        println("3. Выход.");
     }
 }

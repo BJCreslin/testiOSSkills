@@ -19,7 +19,8 @@ public class MoveDispatcherTest {
     @Before
     public void setUp() {
         PaintScreen paintScreen = new paintsScreenMatrix();
-        Game game = new Game(paintScreen, 20, 5, 4, 1);
+        GameParametres gameParametres = new GameParametres(20, 5, 4, 2);
+        Game game = new Game(paintScreen, gameParametres);
         moveDispatcher =  MoveDispatcher.getInstance();
 
         RobotFactory robotFactory = new RobotFactory(game);

@@ -11,11 +11,11 @@ import java.util.*;
 public class Game {
     private boolean playerAlive;  // переменная игры. true- означает, что игра идёт . false- игре конец
 
-    public Game(PaintScreen paintScreen, int nSize, int nPieceOfGold, int nHole, int nRobots) {
-        this.nSize = nSize;
-        this.nPieceOfGold = nPieceOfGold;
-        this.nHole = nHole;
-        this.nRobots = nRobots;
+    public Game(PaintScreen paintScreen, GameParametres gameParametres) {
+        this.nSize = gameParametres.getNSize();
+        this.nPieceOfGold = gameParametres.getNPieceOfGold();
+        this.nHole = gameParametres.getNHole();
+        this.nRobots = gameParametres.getNRobots();
 
         this.paintScreen = paintScreen;
 
@@ -126,9 +126,9 @@ public class Game {
                 робот может сделать ход
                  */
             }
-            while ((checkStartCollision.isPlayerFar(robot)) &
-                    (playingField.getCell(robot.getX(), robot.getY()).equals(Ground.getInstance())) &
-                    (checkStartCollision.isNotEnvironmentByHole(robot)));
+            while ((!checkStartCollision.isPlayerFar(robot)) &
+                    (!playingField.getCell(robot.getX(), robot.getY()).equals(Ground.getInstance())) &
+                    (!checkStartCollision.isNotEnvironmentByHole(robot)));
             robotList.add(robot);
         }
     }
@@ -147,8 +147,7 @@ public class Game {
             paintScreen.viewScore(nPieceOfGold, player.getNumberShockerCharges());
             paintScreen.viewMatrix(ScreeenFieldMaker.gameSymbolsScreeenFieldMaker(playingField.getPlayingFieldCells(),
                     movableQueue));
-            player.action();
-            robotList.forEach(Robot::action);
+            movableQueue.forEach(Movable::action);
         }
 
         if (playerAlive) {
@@ -168,8 +167,6 @@ public class Game {
         movableQueue.add(player);
         return movableQueue;
     }
-
-
 
 
     private class Staticable {
