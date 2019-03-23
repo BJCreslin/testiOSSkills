@@ -35,7 +35,7 @@ public class CheckStartCollision {
 
         for (Map.Entry<Integer, Consumer<Movable>> entry : moveDispatcher.getConsumerMap().entrySet()) {
             entry.getValue().accept(movable);
-            if ((game.getPlayingField().getPlayingFieldCells()[tempMovable.getX()][tempMovable.getY()].
+            if ((game.getPlayingField().getCell(tempMovable.getX(), tempMovable.getY()).
                     isRobotCanMove())) {
                 return true;
             }

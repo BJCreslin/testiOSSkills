@@ -2,6 +2,7 @@ package ru.bjcreslin.model;
 
 
 import lombok.Data;
+import lombok.Getter;
 import ru.bjcreslin.service.*;
 import ru.bjcreslin.view.PaintScreen;
 
@@ -42,10 +43,12 @@ public class Game {
     private int nRobots;//количество роботов
 
 
-    PaintScreen paintScreen; // вывод на экран
-    PlayingField playingField; // Поле статичных объектов
-    CheckMovableCollision checkMovableCollision;// Контроллер коллизий движения объектов
-    CheckStartCollision checkStartCollision; //Контроллер коллизий стартовых позиций
+    private PaintScreen paintScreen; // вывод на экран
+    @Getter
+    private PlayingField playingField; // Поле статичных объектов
+    @Getter
+    private CheckMovableCollision checkMovableCollision;// Контроллер коллизий движения объектов
+    private CheckStartCollision checkStartCollision; //Контроллер коллизий стартовых позиций
 
 
     private Player player; // Игрок

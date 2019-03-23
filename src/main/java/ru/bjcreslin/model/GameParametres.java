@@ -2,6 +2,9 @@ package ru.bjcreslin.model;
 
 import lombok.Data;
 
+/**
+ * Класс параметров игры
+ */
 @Data
 public class GameParametres {
     private Integer nSize;
@@ -10,8 +13,6 @@ public class GameParametres {
     private Integer nRobots;
     private boolean repeatGame;
 
-    public GameParametres() {
-    }
 
     public GameParametres(Integer nSize, Integer nPieceOfGold, Integer nHole, Integer nRobots) {
         this.nSize = nSize;

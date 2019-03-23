@@ -65,7 +65,7 @@ public class Robot extends Movable implements GameObject {
             do {
                 restoreCoord();
                 moveRandom();
-                if (!(game.checkMovableCollision.isMovedInField(this))) {
+                if (!(game.getCheckMovableCollision().isMovedInField(this))) {
                     continue;
                 }
                 if (game.getPlayingField().getCell(this.getX(), this.getY()).isRobotCanMove()) {
@@ -75,7 +75,7 @@ public class Robot extends Movable implements GameObject {
             while (true);
 
             //Если робот догоняет игрока, то убивает его.
-            if (game.checkMovableCollision.isPlayerInCell(this)) {
+            if (game.getCheckMovableCollision().isPlayerInCell(this)) {
                 game.setPlayerAlive(false);
             }
         }
@@ -86,7 +86,7 @@ public class Robot extends Movable implements GameObject {
      * Парализация
      * не  суммируется!!!
      */
-    public void setParalyze() {
+    void setParalyze() {
         numberOfStepsParalyze = 5;
     }
 }

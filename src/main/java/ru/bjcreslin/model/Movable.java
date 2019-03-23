@@ -3,7 +3,7 @@ package ru.bjcreslin.model;
 import lombok.Getter;
 import lombok.Setter;
 
-/*
+/**
 Двигающиеся объекты такие как игрок, роботы. хранят свои координаты в себе.
  */
 public abstract class Movable {

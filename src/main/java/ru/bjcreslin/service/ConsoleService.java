@@ -1,6 +1,5 @@
 package ru.bjcreslin.service;
 
-import java.io.IOException;
 import java.util.Scanner;
 
 public class ConsoleService {
@@ -31,7 +30,7 @@ public class ConsoleService {
     }
 
 
-    public static void printMenu() {
+    static void printMenu() {
         println("Стартовое меню");
         println("выбор пункта меню цифрами");
         println("1. Запуск игры.");

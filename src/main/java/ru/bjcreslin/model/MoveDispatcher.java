@@ -7,7 +7,9 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.function.Consumer;
 
-
+/**
+ * Диспетчер движения для двигающихся объектов
+ */
 public class MoveDispatcher {
     @Getter
     private Map<Integer, Consumer<Movable>> consumerMap;

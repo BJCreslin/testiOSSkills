@@ -8,11 +8,7 @@ public class GameService {
     GameParametres gameParametres;
 
     public GameService() {
-        gameParametres = new GameParametres();
-        gameParametres.setNSize(20);
-        gameParametres.setNPieceOfGold(5);
-        gameParametres.setNHole(12);
-        gameParametres.setNRobots(25);
+        gameParametres = new GameParametres(20, 5, 12, 10);
         gameParametres.setRepeatGame(true);
     }
 

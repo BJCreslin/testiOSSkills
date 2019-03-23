@@ -17,18 +17,27 @@ public class PlayingField {
     @Setter
     private StaticAble[][] playingFieldCells; // Само игровое поле
 
-    public PlayingField(int nSize) {
+    PlayingField(int nSize) {
         this.nSize = nSize;
         playingFieldCells = new StaticAble[nSize][nSize];
         fillAllCellsGround();
     }
 
+    /**
+     * выдает ячейку по координатам
+     *
+     * @param x координата
+     * @param y координата
+     * @return ячейка
+     */
     public StaticAble getCell(int x, int y) {
         return playingFieldCells[y][x];
     }
 
 
-    //Заполняем все клетки "землей"
+    /**
+     * Заполняем все клетки "землей"
+     */
     private void fillAllCellsGround() {
         for (int i = 0; i < nSize; i++) {
             for (int j = 0; j < nSize; j++) {
@@ -41,11 +50,10 @@ public class PlayingField {
         playingFieldCells[y][x] = staticAble;
     }
 
-    //Заполняем текущую клетку "землей"
+    /**Заполняем текущую клетку "землей"*/
     void setGround(int xtemp, int ytemp) {
         playingFieldCells[ytemp][xtemp] = Ground.getInstance();
     }
-
 
 
 }
