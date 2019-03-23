@@ -29,5 +29,12 @@ public class GameTest {
         Assert.assertEquals(game.playingField.getPlayingFieldCells().length, nSize);
     }
 
+    @Test
+    public void gameTestNGold() {
+        int nGold = 7;
+        Game game = new Game(paintScreen, 20, nGold, 4, 4);
+        Assert.assertEquals(game.getNPieceOfGold(), nGold);
+    }
+
 
 }

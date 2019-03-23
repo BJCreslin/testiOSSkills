@@ -11,9 +11,13 @@ import java.util.Random;
 
 public class Robot extends Movable implements GameObject {
     /*
-     Изображение робота - +;
+     Изображение робота ;
       */
-    private String symbolForview = "ᛯ";
+    private String symbolForview;
+
+    {
+        symbolForview = "ᛯ";
+    }
 
     @Override
     public String getObjectSymbol() {
@@ -25,6 +29,7 @@ public class Robot extends Movable implements GameObject {
     // При парализации становится равным 5
     @Getter
     private int numberOfStepsParalyze;
+
     private Game game;
 
     //Новый робот не парализован, и создается в координатах
@@ -34,14 +39,16 @@ public class Robot extends Movable implements GameObject {
         this.game = game;
     }
 
-    /*
-    Хождние робота - случайное.
+    /**
+     * Хождние робота - случайное.
      */
-    public void moveRandom() {
+    void moveRandom() {
         getMoveDispatcher().getConsumerMap().get(new Random().nextInt(4)).accept(this);
     }
 
-
+    /**
+     * Ход робота
+     */
     @Override
     public void action() {
         //Если робот парализован, то он пропускает ход, и количество шагов до оживания уменьшается.
@@ -69,9 +76,17 @@ public class Robot extends Movable implements GameObject {
 
             //Если робот догоняет игрока, то убивает его.
             if (game.checkMovableCollision.isPlayerInCell(this)) {
-                game.slayPlayer();
+                game.setPlayerAlive(false);
             }
         }
     }
 
+
+    /**
+     * Парализация
+     * не  суммируется!!!
+     */
+    public void setParalyze() {
+        numberOfStepsParalyze = 5;
+    }
 }

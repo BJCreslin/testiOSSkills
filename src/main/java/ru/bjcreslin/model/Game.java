@@ -9,11 +9,33 @@ import java.util.*;
 
 @Data
 public class Game {
-    public static void setPlayerAlive(boolean playerAlive) {
-        Game.playerAlive = playerAlive;
+    private boolean playerAlive;  // переменная игры. true- означает, что игра идёт . false- игре конец
+
+    public Game(PaintScreen paintScreen, int nSize, int nPieceOfGold, int nHole, int nRobots) {
+        this.nSize = nSize;
+        this.nPieceOfGold = nPieceOfGold;
+        this.nHole = nHole;
+        this.nRobots = nRobots;
+
+        this.paintScreen = paintScreen;
+
+        this.playingField = new PlayingField(nSize);
+
+        this.checkStartCollision = new CheckStartCollision(this);
+        this.checkMovableCollision = new CheckMovableCollision(this);
+
+        this.player = new Player(this);
+
+        fillHole();
+        fillGold();
+
+        this.robotList = new ArrayList<>();
+        fillRobotList(nRobots);
+
+        //Делаем игрока живым
+        playerAlive = true;
     }
 
-    private static boolean playerAlive;  // переменная игры. true- означает, что игра идёт . false- игре конец
     private int nSize; // Размер игрового поля ( N*N клеток)
     private int nPieceOfGold;// количество кусков золота
     private int nHole;//Количество дырок в полу
@@ -31,36 +53,12 @@ public class Game {
 
     private Deque<Movable> movableQueue;//очередь ходов
 
-
-    public Game(PaintScreen paintScreen, int nSize, int nPieceOfGold, int nHole, int nRobots) {
-        this.nSize = nSize;
-        this.nPieceOfGold = nPieceOfGold;
-        this.nHole = nHole;
-        this.nRobots = nRobots;
-
-        this.paintScreen = paintScreen;
-
-        this.playingField = new PlayingField(nSize);
-
-        this.checkStartCollision = new CheckStartCollision(this);
-        this.checkMovableCollision = new CheckMovableCollision(this);
-
-        this.player = new Player(nSize);
-
-        fillHole();
-
-        fillGold();
-
-
-        this.robotList = new ArrayList<>();
-        fillRobotList(nRobots);
-
-        //Делаем игрока живым
-        playerAlive = true;
+    void setPlayerAlive(boolean playerAlive) {
+        this.playerAlive = playerAlive;
     }
 
-    /*
-    заполнение комнаты золотом
+    /**
+     * заполнение комнаты золотом
      */
     private void fillGold() {
         CheckStartCollision checkStartCollision = new CheckStartCollision(this);
@@ -83,13 +81,11 @@ public class Game {
         }
     }
 
-    /*
-    Заполняем комнату дырками
+    /**
+     * Заполняем комнату дырками
      */
     private void fillHole() {
         CheckStartCollision checkStartCollision = new CheckStartCollision(this);
-
-
         StaticAble[][] tempField = playingField.getPlayingFieldCells().clone();
         while (true) {
             for (int i = 0; i < nHole; i++) {
@@ -108,8 +104,10 @@ public class Game {
         }
     }
 
-    /*
-    Заполенение комнаты роботами
+    /**
+     * Заполнение команты роботами
+     *
+     * @param nSize- количество роботов
      */
     private void fillRobotList(int nSize) {
         GameObjectFactory robotFactory = new RobotFactory(this);
@@ -120,36 +118,37 @@ public class Game {
             1 .на стартовой позиции между игроком и ближайшими к нему роботами должно быть минимум 2 клетки.
             2. робот окружен дырками и не может двигаться;
              */
-            while (true) {
+            do {
                 robot = (Robot) robotFactory.getNewGameObject();
                 /*
                 робот на расстоянии от игрока
                 под роботом земля
                 робот может сделать ход
                  */
-                if ((checkStartCollision.isPlayerFar(robot)) &
-                        (playingField.getCell(robot.getX(), robot.getY()).equals(Ground.getInstance())) &
-                        (checkStartCollision.isNotEnvironmentByHole(robot))) {
-                    break;
-                }
             }
+            while ((checkStartCollision.isPlayerFar(robot)) &
+                    (playingField.getCell(robot.getX(), robot.getY()).equals(Ground.getInstance())) &
+                    (checkStartCollision.isNotEnvironmentByHole(robot)));
             robotList.add(robot);
         }
-
     }
 
-    /*
-    Основной метод игры
+    /**
+     * Основной метод игры
+     * в цикле
+     * 1.рисуется картинка
+     * 2.ходит игрок
+     * 3.ходят работы
      */
     public void play() {
+        /* Цикл пока жив игрок и количсетво золота больше нуля*/
         while (playerAlive & (nPieceOfGold > 0)) {
             movableQueue = makeQuee();
+            paintScreen.viewScore(nPieceOfGold, player.getNumberShockerCharges());
             paintScreen.viewMatrix(ScreeenFieldMaker.gameSymbolsScreeenFieldMaker(playingField.getPlayingFieldCells(),
                     movableQueue));
-            paintScreen.viewScore(nPieceOfGold);
             player.action();
-            robotList.stream().forEach(Robot::action);
-
+            robotList.forEach(Robot::action);
         }
 
         if (playerAlive) {
@@ -159,16 +158,19 @@ public class Game {
         }
     }
 
+    /**
+     * Создание очереди двигающихся объектов
+     *
+     * @return очередь
+     */
     private Deque<Movable> makeQuee() {
-        Deque<Movable> movableQueue = new ArrayDeque<>();
-        movableQueue.addAll(robotList);
+        Deque<Movable> movableQueue = new ArrayDeque<>(robotList);
         movableQueue.add(player);
         return movableQueue;
     }
 
-    public void slayPlayer() {
-        setPlayerAlive(false);
-    }
+
+
 
     private class Staticable {
         private int x;
@@ -182,19 +184,16 @@ public class Game {
             return y;
         }
 
-        public Staticable invoke() {
+        Staticable invoke() {
     /*
     перебираем переменные, пока по ним не будет ячейка -Земля и  в этой ячейке не будет игрока
      */
-            while (true) {
+            do {
                 x = new Random().nextInt(nSize);
                 y = new Random().nextInt(nSize);
-
-                if ((playingField.getCell(x, y).equals(Ground.getInstance())) &
-                        (!player.isHere(x, y))) {
-                    break;
-                }
             }
+            while ((playingField.getCell(x, y).equals(Ground.getInstance())) &
+                    (player.isHere(x, y)));
             return this;
         }
     }

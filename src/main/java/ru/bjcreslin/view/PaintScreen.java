@@ -10,10 +10,11 @@ public abstract class PaintScreen {
     abstract public void viewMatrix(String[][] gameObjects);
 
     /**
-     * Вывод на экран количества оставшегося золота
-     * @param gold -количество золота на поле
+     * Вывод на экран количества оставшегося золота и зарядов шокера
+     * @param gold -золото на поле
+     * @param charge  - шокер
      */
-    abstract public void viewScore(int gold);
+    abstract public void viewScore(int gold, int charge);
 
     /**
      * ПОздравление с победой

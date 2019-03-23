@@ -8,7 +8,11 @@ class Ground extends StaticAble implements GameObject {
     /*
      Изображение земли - _;
       */
-    private String symbolForview = " ";
+    private String symbolForview;
+
+    {
+        symbolForview = " ";
+    }
 
     @Override
     public String getObjectSymbol() {

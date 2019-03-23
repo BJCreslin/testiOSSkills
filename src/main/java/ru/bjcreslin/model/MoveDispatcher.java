@@ -5,7 +5,6 @@ import lombok.Getter;
 
 import java.util.HashMap;
 import java.util.Map;
-import java.util.function.BiConsumer;
 import java.util.function.Consumer;
 
 
@@ -31,12 +30,12 @@ public class MoveDispatcher {
 
     //Увеличиваем координату y - движение вверх
     void up(Movable movable) {
-        movable.setY(1 + movable.getY().intValue());
+        movable.setY(movable.getY() - 1);
     }
 
     //Уменьшаем координату y - движение вниз
     void down(Movable movable) {
-        movable.setY(movable.getY() - 1);
+        movable.setY(movable.getY() + 1);
     }
 
     //Увеличиваем координату x - движение вправо

@@ -15,8 +15,8 @@ public class paintsScreenMatrix extends PaintScreen {
     }
 
     @Override
-    public void viewScore(int gold) {
-        ConsoleService.println("Остаток золота: " + gold);
+    public void viewScore(int gold, int charge) {
+        ConsoleService.println("Остаток золота: " + gold + " Зарядов:" + charge);
     }
 
     @Override
