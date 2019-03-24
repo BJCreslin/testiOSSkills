@@ -28,6 +28,7 @@ public class Game {
         this.player = new Player(this);
 
         fillHole();
+
         fillGold();
 
         this.robotList = new ArrayList<>();
